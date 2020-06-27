@@ -38,21 +38,27 @@ floating_modifier Mod1
 bindsym Mod1+Return exec gnome-terminal
 
 # start firefox
-bindsym Mod4+b exec firefox
+bindsym Mod4+b exec --no-startup-id firefox
 
 # start chromium
-bindsym Mod4+Shift+b exec chromium-browser
+bindsym Mod4+Shift+b exec --no-startup-id brave-browser
 # start ranger
 bindsym Mod4+f exec gnome-terminal -e ranger
+
+#start nemo
+bindsym Mod4+n exec --no-startup-id nemo
+
+#start spotify
+bindsym Mod4+s exec --no-startup-id spotify
 #
 # start i3lock
-bindsym Mod1+Ctrl+l exec i3lock
+bindsym Mod1+Ctrl+l exec --no-startup-id bash /home/kausik/.config/i3/./i3lock.sh
 
 # kill focused window
 bindsym Mod1+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym Mod1+d exec dmenu_run
+bindsym Mod1+d exec --no-startup-id dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -114,6 +120,8 @@ bindsym Mod1+Shift+minus move scratchpad
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym Mod1+minus scratchpad show
+
+
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -190,7 +198,7 @@ bindsym Mod1+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+    status_command i3status 
 }
 
 #######################################################################
@@ -206,26 +214,39 @@ bar {
 #
 #Startup application
 #
+#Multi monitor
+exec --no-startup-id xrandr --output VGA1 --auto --right-of LVDS1
+# Moving workspaces between screens 
+bindsym $mod+shift+right move workspace to output right
+bindsym $mod+shift+left move workspace to output right
+
+
 #Tearing issue
 exec --no-startup-id compton -cCGb --backend glx --vsync opengl
+#exec --no-startup-id compton --config /home/kausik/.config/compton.conf
 #Walpaper
-exec --no-startup-id feh --bg-scale '/home/kausik/wallpapers/1490469264679.jpg'
+exec --no-startup-id feh --bg-scale '/home/kausik/.local/share/bg'
 #redshift-gtk
-#exec --no-startup-id redshift-gtk
+exec --no-startup-id redshift-gtk
 #
 #Backlight
-bindsym XF86MonBrightnessUp exec  xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec  xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
 
 # Pulse Audio controls
-#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym Shift+Up exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 bindsym Shift+Down exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
 # Media player controls
-bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+#bindsym XF86AudioPlay exec playerctl play
+#bindsym XF86AudioPause exec playerctl pause
+#bindsym XF86AudioNext exec playerctl next
+#bindsym XF86AudioPrev exec playerctl previous
+
+bindsym XF86AudioPlay exec --no-startup-id omnipause toggle
+bindsym XF86AudioNext exec --no-startup-id omnipause next
+bindsym XF86AudioPrev exec --no-startup-id omnipause previous
+
